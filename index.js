@@ -32,6 +32,10 @@ const storage = multer.diskStorage({
 });
 const upload = multer({ storage });
 
+app.get("/", (req, res) => {
+  res.json({ message: "Welcome" });
+});
+
 const PORT = process.env.PORT || 6001;
 mongoose
   .connect(process.env.MONGO_URL, {

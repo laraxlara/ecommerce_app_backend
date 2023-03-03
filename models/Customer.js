@@ -45,6 +45,12 @@ const CustomerSchema = new mongoose.Schema(
     contact: {
       type: Number,
     },
+    roles: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Role",
+      },
+    ],
   },
   { timestamps: true }
 );
