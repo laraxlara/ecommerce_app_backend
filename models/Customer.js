@@ -19,6 +19,7 @@ const CustomerSchema = new mongoose.Schema(
       required: true,
       max: 50,
       unique: true,
+      lowercase: true,
     },
     password: {
       type: String,
