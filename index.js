@@ -32,6 +32,9 @@ const storage = multer.diskStorage({
 });
 const upload = multer({ storage });
 
+import db from "./models/index.js";
+const Role = db.role;
+
 app.get("/", (req, res) => {
   res.json({ message: "Welcome" });
 });
@@ -44,4 +47,32 @@ mongoose
   })
   .then(() => {
     app.listen(PORT, () => console.log(`Server started on port: ${PORT}`));
+    return Role.estimatedDocumentCount();
+  })
+  .then((err, count) => {
+    if (!err && count === 0) {
+      new Role({
+        name: "customer",
+      }).save((err) => {
+        if (err) {
+          console.log("error", err);
+        }
+
+        console.log("added 'customer' to roles collection");
+      });
+
+      new Role({
+        name: "admin",
+      }).save((err) => {
+        if (err) {
+          console.log("error", err);
+        }
+
+        console.log("added 'admin' to roles collection");
+      });
+    }
+  })
+  .catch((err) => {
+    console.log("Connection error", err);
+    process.exit();
   });
