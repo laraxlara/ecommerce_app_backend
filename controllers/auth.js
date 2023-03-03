@@ -1,5 +1,5 @@
 import bcrypt from "bcrypt";
-import jwt from "jwt";
+import jwt from "jsonwebtoken";
 import Customer from "../models/Customer.js";
 
 /* Registration */
