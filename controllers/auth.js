@@ -50,7 +50,7 @@ export const signin = async (req, res) => {
 
     const token = jwt.sign({ id: customer._id }, process.env.JWT_SECRET);
     delete customer.password;
-    res.stats(200).json({ token, user });
+    res.status(200).json({ token, user });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
