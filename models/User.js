@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const CustomerSchema = new mongoose.Schema(
+const UserSchema = new mongoose.Schema(
   {
     name: {
       type: String,
@@ -27,33 +27,31 @@ const CustomerSchema = new mongoose.Schema(
       min: 8,
       unique: true,
     },
-    imagePath: {
-      type: String,
-      default: "",
-    },
+    // imagePath: {
+    //   type: String,
+    //   default: "",
+    // },
     address: {
-      city: {
-        type: String,
-      },
-      street: {
-        type: String,
-      },
-      country: {
-        type: String,
-      },
+      type: String,
     },
     contact: {
       type: Number,
     },
-    roles: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Role",
+    refreshToken: {
+      type: String,
+    },
+    roles: {
+      User: {
+        type: Number,
+        default: 2001,
       },
-    ],
+      Admin: {
+        type: Number,
+      },
+    },
   },
   { timestamps: true }
 );
 
-const Customer = mongoose.model("Customer", CustomerSchema);
-export default Customer;
+const User = mongoose.model("User", UserSchema);
+export default User;

@@ -12,10 +12,13 @@ export const verifyToken = async (req, res, next) => {
       token = token.slice(7, token.length).trimLeft();
     }
 
-    const verified = jwt.verify(token, process.env.JWT_SECRET);
-    req.user = verified;
-    next();
-  } catch (err) {
-    res.status(500).json({ error: err.message });
-  }
+    const verified = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, 
+      (err, decoded) => {
+            if (err) return res.sendStatus(403); //invalid token
+            req.user = decoded.UserInfo.email;
+            req.roles = decoded.UserInfo.roles;
+            next();
+        }
+      ); 
+  }  
 };
